@@ -142,7 +142,7 @@ public class MainActivity extends FragmentActivity implements
     // to the server.  True by default because this sample does not implement a server
     // so there would be nowhere to send the code.
     private boolean mServerHasToken = true;
-
+    private Button mMenuButton;
     private SignInButton mSignInButton;
     private Button mSignOutButton;
     private Button mRevokeButton;
@@ -155,7 +155,7 @@ public class MainActivity extends FragmentActivity implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
-
+        mMenuButton = (Button) findViewById(R.id.menu_button);
         mSignInButton = (SignInButton) findViewById(R.id.sign_in_button);
         mSignOutButton = (Button) findViewById(R.id.sign_out_button);
         mRevokeButton = (Button) findViewById(R.id.revoke_access_button);
@@ -166,6 +166,7 @@ public class MainActivity extends FragmentActivity implements
         mSignInButton.setOnClickListener(this);
         mSignOutButton.setOnClickListener(this);
         mRevokeButton.setOnClickListener(this);
+        mMenuButton.setOnClickListener(this);
 
         // CheckBox listeners
         ((CheckBox) findViewById(R.id.request_auth_code_checkbox)).setOnCheckedChangeListener(this);
@@ -233,6 +234,7 @@ public class MainActivity extends FragmentActivity implements
                     mStatus.setText(R.string.status_signing_in);
                     mSignInProgress = STATE_SIGN_IN;
                     mGoogleApiClient.connect();
+                    mMenuButton.setVisibility(View.VISIBLE);
                     break;
                 case R.id.sign_out_button:
                     // We clear the default account on sign out so that Google Play
@@ -256,6 +258,10 @@ public class MainActivity extends FragmentActivity implements
                     mGoogleApiClient = buildGoogleApiClient();
                     mGoogleApiClient.connect();
                     break;
+                case R.id.menu_button:
+
+                    Intent intent = new Intent(this, MenuActivity.class);
+                    startActivity(intent);
             }
         }
     }
