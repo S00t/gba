@@ -10,7 +10,10 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
+
+import org.json.JSONObject;
 
 /**
  * Created by fares on 7/3/15.
@@ -19,14 +22,14 @@ public class Parser {
 
     public List<Book> parseJsonBooks(String jsonBooks){
         GsonBuilder gsonBuilder = new GsonBuilder();
-        gsonBuilder.registerTypeAdapter(Book[].class, new DeserializerJsonBook());
+        gsonBuilder.registerTypeAdapter(Book[].class, new DeserializerJsonBooks());
         Gson gson = gsonBuilder.create();
 
         Book[] newsArray = gson.fromJson(jsonBooks, Book[].class);
         return Arrays.asList(newsArray);
     }
 
-    private class DeserializerJsonBook implements JsonDeserializer<Book[]> {
+    private class DeserializerJsonBooks implements JsonDeserializer<Book[]> {
         @Override
         public Book[] deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
             Book[] newsArray;
@@ -46,18 +49,9 @@ public class Parser {
 
     private class DeserializerJsonBook implements JsonDeserializer<Book> {
         @Override
-        public Book[] deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-            Book[] newsArray;
-            if (json.isJsonObject()) {
-                return new Book[] {(Book)context.deserialize(json, Book.class)};
-            } else if (json.isJsonArray()) {
-                final JsonArray asJsonArray = json.getAsJsonArray();
-                newsArray = new Book[asJsonArray.size()];
-                for (int i = 0; i < newsArray.length; i++) {
-                    newsArray[i] = context.deserialize(asJsonArray.get(i).getAsJsonObject(), Book.class);
-                }
-                return newsArray;
-            }
+        public Book deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+            JsonObject jsonObject = json.getAsJsonObject();
+
             return null;
         }
     }

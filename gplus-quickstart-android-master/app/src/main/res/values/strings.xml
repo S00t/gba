@@ -46,5 +46,6 @@
     <string name="title_activity_menu">MenuActivity</string>
     <string name="title_activity_titles">TitlesActivity</string>
     <string name="title_activity_search">SearchActivity</string>
+    <string name="Search">Szukaj</string>
 
 </resources>

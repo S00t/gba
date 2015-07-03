@@ -1,17 +1,33 @@
 package com.google.android.gms.plus.sample.quickstart;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 
-public class MenuActivity extends Activity {
+public class MenuActivity extends Activity implements View.OnClickListener{
+
+    public static final int AUTHOR_SEARCH = 0;
+    public static final int TITLE_SEARCH  = 1;
+
+    private Button bSearchAuthors;
+    private Button bSearchTitle;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+
+        bSearchAuthors = (Button) findViewById(R.id.authors_button);
+        bSearchTitle= (Button) findViewById(R.id.titles_button);
+
+        bSearchAuthors.setOnClickListener(this);
+        bSearchTitle.setOnClickListener(this);
     }
 
 
@@ -35,5 +51,23 @@ public class MenuActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        if (id == R.id.authors_button)
+            startSearchActivity(AUTHOR_SEARCH);
+        if (id == R.id.titles_button)
+            startSearchActivity(TITLE_SEARCH);
+    }
+
+    private void startSearchActivity(int type){
+        Intent intent = new Intent(this, SearchActivity.class);
+        Bundle b = new Bundle();
+        b.putInt("typ", type); //Your id
+        intent.putExtras(b); //Put your id to your next Intent
+        startActivity(intent);
+        finish();
     }
 }

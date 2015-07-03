@@ -38,7 +38,7 @@
         android:icon="@drawable/ic_launcher"
         android:label="Logowanie GOOGLE+" >
         <activity
-            android:name=".MainActivity"
+            android:name=".MenuActivity"
             android:label="Logowanie GOOGLE+" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -56,7 +56,7 @@
             android:label="@string/title_activity_authors" >
         </activity>
         <activity
-            android:name=".MenuActivity"
+            android:name=".MainActivity"
             android:label="@string/title_activity_menu" >
         </activity>
         <activity

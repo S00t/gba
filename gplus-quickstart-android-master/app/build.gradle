@@ -16,7 +16,10 @@ repositories {
 dependencies {
     compile 'com.android.support:support-v4:21.0.3'
     compile 'com.google.android.gms:play-services:7.0.0'
+    // gson parser
     compile 'com.google.code.gson:gson:2.3'
+    // http connection
+    compile 'com.squareup.okhttp:okhttp:2.4.0'
 }
 
 android {
