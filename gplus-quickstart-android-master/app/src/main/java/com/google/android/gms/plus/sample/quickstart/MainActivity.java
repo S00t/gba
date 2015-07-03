@@ -182,6 +182,7 @@ public class MainActivity extends FragmentActivity implements
         }
 
         mGoogleApiClient = buildGoogleApiClient();
+        Toast.makeText(this, "test", Toast.LENGTH_SHORT).show();
     }
 
     private GoogleApiClient buildGoogleApiClient() {
